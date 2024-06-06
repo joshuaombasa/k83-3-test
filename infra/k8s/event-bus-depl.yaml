@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+type: Deployment
+metadata:
+  name: posts-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posts
+  template:
+    metadata:
+      labels:
+        app: posts
+    spec:
+    container: 
+      - name: posts
+        image: joshuaombasa/k8s3-posts
+
+
+---
+
+apiVersion: app
+type: Service
+metadata:
+  name: posts-srv
+spec:
+  selector:
+    app: posts
+  ports:
+    - name: posts
+      protocol: TCP
+      targetPort: 
+      port:
