@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-type: Deployment
+kind: Deployment
 metadata:
   name: posts-depl
 spec:
@@ -12,15 +12,12 @@ spec:
       labels:
         app: posts
     spec:
-    container: 
-      - name: posts
-        image: joshuaombasa/k8s3-posts
-
-
+      containers:
+        - name: posts
+          image: joshuaombasa/k8s3-posts
 ---
-
-apiVersion: app
-type: Service
+apiVersion: v1
+kind: Service
 metadata:
   name: posts-srv
 spec:
@@ -29,5 +26,5 @@ spec:
   ports:
     - name: posts
       protocol: TCP
-      targetPort: 
-      port:
+      port: 4000
+      targetPort: 4000
