@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-type: Deployment
+kind: Deployment
 metadata:
   name: posts-depl
 spec:
@@ -12,22 +12,24 @@ spec:
       labels:
         app: posts
     spec:
-    container: 
-      - name: posts
-        image: joshuaombasa/k8s3-posts
-
+      containers:
+        - name: posts
+          image: joshuaombasa/k8s3-posts
+          ports:
+            - containerPort: 80
 
 ---
 
-apiVersion: app
-type: Service
+apiVersion: v1
+kind: Service
 metadata:
   name: posts-srv
 spec:
   selector:
     app: posts
   ports:
-    - name: posts
+    - name: http
       protocol: TCP
-      targetPort: 
-      port:
+      port: 80
+      targetPort: 80
+  type: ClusterIP
